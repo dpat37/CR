@@ -1,0 +1,11 @@
+#visual-content {
+	font: 9px sans-serif;
+	color: #121401;
+}
+.axis path,
+.axis line {
+	fill: none;
+	stroke: #121401;
+	stroke-width: 2px;
+	shape-rendering: crispEdges;
+}

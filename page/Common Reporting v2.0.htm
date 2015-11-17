@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+		<meta http-equiv="x-ua-compatible" content="IE=edge">
+		<link rel="stylesheet" href="Common%20Reporting%20v2.0_files/graph.css">
+		<link rel="stylesheet" href="Common%20Reporting%20v2.0_files/bootstrap.css">
+		<link rel="stylesheet" href="Common%20Reporting%20v2.0_files/theme.css">
+		<link rel="stylesheet" href="Common%20Reporting%20v2.0_files/datepicker.css">
+		<script src="Common%20Reporting%20v2.0_files/jquery-2.js" charset="utf-8"></script>
+		<script src="Common%20Reporting%20v2.0_files/jquery-ui.js"></script>
+		<script src="Common%20Reporting%20v2.0_files/d3.js" charset="utf-8"></script>		
+		<script src="Common%20Reporting%20v2.0_files/tables.js" charset="utf-8"></script>
+		<script src="Common%20Reporting%20v2.0_files/apps.js" charset="utf-8"></script>
+		<script src="Common%20Reporting%20v2.0_files/jquery.js" charset="utf-8"></script>
+		<script src="Common%20Reporting%20v2.0_files/bootstrap-datepicker.js" charset="utf-8"></script>
+		<script src="Common%20Reporting%20v2.0_files/bootstrap.js" charset="utf-8"></script>
+		<script src="Common%20Reporting%20v2.0_files/commonReporting.js"></script>
+		<script src="Common%20Reporting%20v2.0_files/commonReportingMulti.js"></script>
+		<script src="Common%20Reporting%20v2.0_files/jszip-utils.js"></script>
+		<script src="Common%20Reporting%20v2.0_files/pako.js"></script>
+		<title>Common Reporting v2.0</title>			
+	</head>
+	<body>
+		<div class="container" style="width:1400px;">
+			<div class="navbar navbar-default">				
+				<div class="navbar-header">
+					<button class="navbar-toggle" data-target=".navbar-collapse" data-toggle="collapse" type="button">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" data-toggle="tab" href="#dashboard">Common Reporting v2.0</a>
+				</div>
+				<div class="navbar-collapse collapse">
+					<ul class="nav navbar-nav">
+						<li class="active">
+							<a data-toggle="tab" href="#singleDay">Single Day</a>
+						</li>
+						<li>
+							<a data-toggle="tab" href="#mulitpleDay">Multiple Days</a>
+						</li>					
+					</ul>
+				</div>			
+			</div>
+			  
+			  <div class="tab-content">
+				<div id="singleDay" class="tab-pane active">					
+					<div id="dropdowns">
+						<table style="width:1400px;">
+							<tbody><tr style="font-size: 14px;">
+								<td style="width:300px;">
+									<p style="color: #333;font-weight: bold;">Select Date:
+					    				<input value="2015-11-02" placeholder="Select A Date" id="datepicker" style="font-weight: normal;" type="text">
+					    			</p>
+					    		</td>
+					    		<td style="width:300px;">
+									<p style="color: #333;font-weight: bold;">Select Application:
+										<select id="appDropDown" class="select" onchange="appChanged()" style="font-weight: normal;"><option value=""></option><option value="ASO">ASO</option><option value="FAC">FAC</option><option value="FP">FP</option><option value="GA">GA</option><option value="GDOL">GDOL</option><option value="GWNSTAT">GWNSTAT</option><option value="HPDOLLAUNCH">HPDOLLAUNCH</option><option value="IFC">IFC</option><option value="IFWA">IFWA</option><option value="IPA">IPA</option><option value="IPC">IPC</option><option value="MSCL">MSCL</option><option value="MSCL BATCH">MSCL BATCH</option><option value="RDO">RDO</option><option selected="selected" value="RMS">RMS</option><option value="SCL">SCL</option><option value="Scheduler">Scheduler</option><option value="UIFS">UIFS</option><option value="WSP">WSP</option><option value="ZR">ZR</option></select> 	
+									</p>
+					    		</td>
+					    		<td style="width:800px;">
+									<p style="color: #333;font-weight: bold;">Select Data:
+										<select id="apiDropdown" class="select" onchange="apiChanged()" style="font-weight: normal;"><option value=""></option><option selected="selected" value="D|AMSWS">AMSWS</option><option value="A|RMS">Application Hits</option><option value="D|BWS">BWS</option><option value="D|CES">CES</option><option value="D|CESXD">CESXD</option><option value="D|CPED_FTP">CPED_FTP</option><option value="D|CRD">CRD</option><option value="D|DIALS">DIALS</option><option value="D|Document Services">Document Services</option><option value="D|DownstreamLocationsUpdate">DownstreamLocationsUpdate</option><option value="D|IMS">IMS</option><option value="D|IMS_RMSService_WS">IMS_RMSService_WS</option><option value="D|KialaLocation">KialaLocation</option><option value="D|KialaPackage">KialaPackage</option><option value="D|MCEELIGIBILITY">MCEELIGIBILITY</option><option value="D|NS">NS</option><option value="D|PCIS">PCIS</option><option value="D|RCS">RCS</option><option value="D|RMSDB">RMSDB</option><option value="D|SCL-BD">SCL-BD</option><option value="D|SCL_Services">SCL_Services</option><option value="D|TRACKING">TRACKING</option><option value="D|USERENROLLMENT">USERENROLLMENT</option><option value="D|XOLT_PICKUP_WS">XOLT_PICKUP_WS</option><option value="D|XPLD">XPLD</option></select> 	
+									</p>
+					    		</td>
+							</tr>
+						</tbody></table>								  	
+					</div>
+					<div class="btn-group">
+						<div class="btn-group">
+							<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">	Tables <span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu" role="menu">
+								<li><a href="#" onclick="tableButtonClicked('APIHits')">Main Stats</a></li>
+								<li><a href="#" onclick="tableButtonClicked('HourlyHits')">Hits By Hour</a></li>
+								<li><a href="#" onclick="tableButtonClicked('ClientHits')">Hits By Client</a></li>
+								<li><a href="#" onclick="tableButtonClicked('ServerHits')">Hits By Server</a></li>
+								<li><a href="#" onclick="tableButtonClicked('ErrorCounts')">Error Counts</a></li>
+							</ul>
+						</div>
+						<div class="btn-group">
+							<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">	Graphs <span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu" role="menu">
+								<li><a href="#" onclick="graphButtonClicked('countByHour')">Count By Hour</a></li>
+								<li><a href="#" onclick="graphButtonClicked('avgByHour')">Average Time By Hour</a></li>
+								<li><a href="#" onclick="graphButtonClicked('countByClient')">Count By Client</a></li>	
+								<li><a href="#" onclick="graphButtonClicked('countByServer')">Count By Server</a></li>	
+								<li><a href="#" onclick="graphButtonClicked('countByError')">Count By Error</a></li>						
+							</ul>
+						</div>
+					</div>
+					<div id="dynamicContent"><table role="grid" class="table table-condensed tablesorter table-hover tablesorter-default"><thead><tr class="tablesorter-headerRow" role="row"><th aria-label="API Name: Ascending sort applied, activate to apply a descending sort" aria-sort="ascending" style="-moz-user-select: none;" unselectable="on" aria-disabled="false" role="columnheader" scope="col" tabindex="0" class="tablesorter-header tablesorter-headerAsc" data-column="0"><div class="tablesorter-header-inner">API Name</div></th><th aria-label="Min Time: No sort applied, activate to apply an ascending sort" aria-sort="none" style="-moz-user-select: none;" unselectable="on" aria-disabled="false" role="columnheader" scope="col" tabindex="0" class="tablesorter-header tablesorter-headerUnSorted" data-column="1"><div class="tablesorter-header-inner">Min Time</div></th><th aria-label="Max Time: No sort applied, activate to apply an ascending sort" aria-sort="none" style="-moz-user-select: none;" unselectable="on" aria-disabled="false" role="columnheader" scope="col" tabindex="0" class="tablesorter-header tablesorter-headerUnSorted" data-column="2"><div class="tablesorter-header-inner">Max Time</div></th><th aria-label="Avg Time: No sort applied, activate to apply an ascending sort" aria-sort="none" style="-moz-user-select: none;" unselectable="on" aria-disabled="false" role="columnheader" scope="col" tabindex="0" class="tablesorter-header tablesorter-headerUnSorted" data-column="3"><div class="tablesorter-header-inner">Avg Time</div></th><th aria-label="Total Requests: No sort applied, activate to apply an ascending sort" aria-sort="none" style="-moz-user-select: none;" unselectable="on" aria-disabled="false" role="columnheader" scope="col" tabindex="0" class="tablesorter-header tablesorter-headerUnSorted" data-column="4"><div class="tablesorter-header-inner">Total Requests</div></th><th aria-label="Success Count: No sort applied, activate to apply an ascending sort" aria-sort="none" style="-moz-user-select: none;" unselectable="on" aria-disabled="false" role="columnheader" scope="col" tabindex="0" class="tablesorter-header tablesorter-headerUnSorted" data-column="5"><div class="tablesorter-header-inner">Success Count</div></th><th aria-label="Error Count: No sort applied, activate to apply an ascending sort" aria-sort="none" style="-moz-user-select: none;" unselectable="on" aria-disabled="false" role="columnheader" scope="col" tabindex="0" class="tablesorter-header tablesorter-headerUnSorted" data-column="6"><div class="tablesorter-header-inner">Error Count</div></th><th aria-label="Percent Success: No sort applied, activate to apply an ascending sort" aria-sort="none" style="-moz-user-select: none;" unselectable="on" aria-disabled="false" role="columnheader" scope="col" tabindex="0" class="tablesorter-header tablesorter-headerUnSorted" data-column="7"><div class="tablesorter-header-inner">Percent Success</div></th><th aria-label="Percent Error: No sort applied, activate to apply an ascending sort" aria-sort="none" style="-moz-user-select: none;" unselectable="on" aria-disabled="false" role="columnheader" scope="col" tabindex="0" class="tablesorter-header tablesorter-headerUnSorted" data-column="8"><div class="tablesorter-header-inner">Percent Error</div></th><th aria-label="Percent of Requests: No sort applied, activate to apply an ascending sort" aria-sort="none" style="-moz-user-select: none;" unselectable="on" aria-disabled="false" role="columnheader" scope="col" tabindex="0" class="tablesorter-header tablesorter-headerUnSorted" data-column="9"><div class="tablesorter-header-inner">Percent of Requests</div></th></tr></thead><tbody aria-relevant="all" aria-live="polite"><tr role="row" onclick="rowClicked('accessPointDeleteRegistration')"><td>accessPointDeleteRegistration</td><td>24</td><td>1128</td><td>253</td><td>342</td><td>342</td><td>0</td><td>100.00</td><td>0.00</td><td>1.42</td></tr><tr role="row" onclick="rowClicked('accessPointRegistration')"><td>accessPointRegistration</td><td>92</td><td>10641</td><td>1233</td><td>345</td><td>343</td><td>2</td><td>99.42</td><td>0.58</td><td>1.43</td></tr><tr role="row" onclick="rowClicked('accessPointStandardization')"><td>accessPointStandardization</td><td>2</td><td>5295</td><td>750</td><td>23386</td><td>23077</td><td>309</td><td>98.68</td><td>1.32</td><td>97.15</td></tr></tbody></table></div>					
+				</div>
+				<div id="mulitpleDay" class="tab-pane">
+					<div id="dropdowns">
+						<table style="width:1400px;">
+							<tbody><tr style="font-size: 14px;">
+								<td style="width:500px;">
+									<div id="datepickerMulti" class="input-daterange">
+										<p style="color: #333;font-weight: bold;">Select Dates:
+										    <input id="datepickerStart" class="input-small" style="font-weight: normal;" type="text">
+										    <span class="add-on">to</span>
+										    <input value="2015-11-02" id="datepickerEnd" class="input-small" style="font-weight: normal;" type="text">
+									    </p>
+									</div>
+					    		</td>
+					    		<td style="width:300px;">
+									<p style="color: #333;font-weight: bold;">Select Application:
+										<select id="appDropDownMulti" class="select" onchange="appChangedMulti()" style="font-weight: normal;"><option selected="selected" value=""></option><option value="ASO">ASO</option><option value="FAC">FAC</option><option value="FP">FP</option><option value="GA">GA</option><option value="GDOL">GDOL</option><option value="GWNSTAT">GWNSTAT</option><option value="HPDOLLAUNCH">HPDOLLAUNCH</option><option value="IFC">IFC</option><option value="IFWA">IFWA</option><option value="IPA">IPA</option><option value="IPC">IPC</option><option value="MSCL">MSCL</option><option value="MSCL BATCH">MSCL BATCH</option><option value="RDO">RDO</option><option value="RMS">RMS</option><option value="SCL">SCL</option><option value="Scheduler">Scheduler</option><option value="UIFS">UIFS</option><option value="WSP">WSP</option><option value="ZR">ZR</option></select> 	
+									</p>
+					    		</td>
+					    		<td style="width:600px;">
+									<p style="color: #333;font-weight: bold;">Select Data:
+										<select id="apiDropdownMulti" class="select" onchange="apiChangedMulti()" style="font-weight: normal;"></select> 	
+									</p>
+					    		</td>
+							</tr>
+						</tbody></table>								  	
+					</div>
+					<div class="btn-group">
+						<div class="btn-group">
+							<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">	Tables <span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu" role="menu">
+								<li><a href="#" onclick="tableButtonClickedMulti('APIHits')">Main Stats</a></li>
+							</ul>
+						</div>
+						<div class="btn-group">
+							<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">	Graphs <span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu" role="menu">
+								<li><a href="#" onclick="graphButtonClickedMulti('dailyCount')">Daily Count</a></li>						
+							</ul>
+						</div>
+					</div>
+					<div id="dynamicContentMulti"></div>
+				</div>
+			</div>
+		</div>
+		
+		<!--  MODAL -->
+		<div id="rowModal" class="modal fade" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" style="display: none;" aria-hidden="true">
+			<div class="modal-dialog modal-lg" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+						<h4 class="modal-title" id="myModalLabel">MQFeed Statistics</h4>
+					</div>
+					<div class="modal-body">
+						<div class="btn-group">
+							<div class="btn-group">
+								<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">	Tables <span class="caret"></span>
+								</button>
+								<ul class="dropdown-menu" role="menu">
+									<li><a href="#" onclick="modalTableButtonClicked('APIHits')">Main Stats</a></li>
+									<li><a href="#" onclick="modalTableButtonClicked('HourlyHits')">Hits By Hour</a></li>
+									<li><a href="#" onclick="modalTableButtonClicked('ClientHits')">Hits By Client</a></li>
+									<li><a href="#" onclick="modalTableButtonClicked('ServerHits')">Hits By Server</a></li>
+									<li><a href="#" onclick="modalTableButtonClicked('ErrorCounts')">Error Counts</a></li>
+								</ul>
+							</div>
+							<div class="btn-group">
+								<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">	Graphs <span class="caret"></span>
+								</button>
+								<ul class="dropdown-menu" role="menu">
+									<li><a href="#" onclick="modalGraphButtonClicked('countByHour')">Count By Hour</a></li>
+									<li><a href="#" onclick="modalGraphButtonClicked('avgByHour')">Average Time By Hour</a></li>
+									<li><a href="#" onclick="modalGraphButtonClicked('countByClient')">Count By Client</a></li>
+									<li><a href="#" onclick="modalGraphButtonClicked('countByServer')">Count By Server</a></li>	
+									<li><a href="#" onclick="modalGraphButtonClicked('countByError')">Count By Error</a></li>	
+								</ul>
+							</div>
+						</div>
+						<div id="modalDynamicContent"></div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>						
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--  END MODAL -->
+		
+		<!-- MULTI MODAL -->
+		<div id="rowMultiModal" class="modal fade" aria-labelledby="myMultiModalLabel" role="dialog" tabindex="-1" style="display: none;" aria-hidden="true">
+			<div class="modal-dialog modal-lg" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">×</span>
+						</button>
+						<h4 class="modal-title" id="myMultiModalLabel">MQFeed Statistics</h4>
+					</div>
+					<div class="modal-body">
+						<div class="btn-group">							
+							<div class="btn-group">
+								<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">	Graphs <span class="caret"></span>
+								</button>
+								<ul class="dropdown-menu" role="menu">
+									<li><a href="#" onclick="multiModalGraphButtonClicked('dailyCount')">Count By Day</a></li>
+									<li><a href="#" onclick="multiModalGraphButtonClicked('avgByDay')">Average Time By Day</a></li>										
+								</ul>
+							</div>
+						</div>
+						<div id="multiModalDynamicContent"></div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>						
+					</div>
+				</div>
+			</div>
+		</div>
+		<!--  END MULTI MODAL -->
+		
+ 		<script>
+			//$(document).ready(function () {
+			//	loadJSON('RMS', '2015-05-24');				
+			//});			
+			$(document).ready(function () {
+				var d = new Date();
+	            d.setDate(d.getDate() - 1);
+	            
+	            $('#datepicker').datepicker({
+			    	format: "yyyy-mm-dd",
+			        startDate: "2015-06-02",
+			        endDate: (new Date()).toDateString(),
+			        autoclose: true,
+			        orientation: "top auto"			       
+			    });
+			    
+			    $('#datepicker').datepicker()
+			    	.on('changeDate', function(e){
+			        	dateChanged(e.date);
+			    });
+			    
+			     $('#datepicker').datepicker('update', d);
+			    dateChanged(d);
+			    
+			    loadAppListJSON();
+			    
+			    $('#rowModal').on('hidden.bs.modal', function (e) {
+					selectedSubName = null;
+				});
+			    
+			    $('#datepickerMulti').datepicker({
+			    	format: "yyyy-mm-dd",
+			        startDate: "2015-06-02",
+			        endDate: (new Date()).toDateString(),
+			        autoclose: true,
+			        orientation: "top auto"			       
+			    });
+			    
+			    $('#datepickerMulti').datepicker()
+			    	.on('changeDate', function(e){
+			        	dateChangedMulti(e.date);
+			    });
+			    			    
+			     $('#datepickerEnd').datepicker('update', d);
+			     dateChangedMulti(d);
+			    
+			    
+			    loadAppListJSONMulti();
+			    
+			    $('#rowMultiModal').on('hidden.bs.modal', function (e) {
+					selectedSubName = null;
+				});
+			});
+		</script>
+	
+</body></html>
