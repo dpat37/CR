@@ -102,6 +102,7 @@ function loadContent(index){
 	//make sure to call the visual content creator first
 	createVisualContentHolder();
 	createSeperator();
+	
 	createTableContentHolders();	
 	
 	for(var i=0; i<clients.length; i++){

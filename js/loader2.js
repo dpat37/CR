@@ -22,7 +22,7 @@ function getNewHolderObj(name){
 			"values":[]
 		};
 }
-/*****************Helper Functions: loading JSON Data*******************/
+/*****************Helper Functions: loading JSON Data********** *********/
 function getZippedJSON(url){
 	var data = null;
 	JSZipUtils.getBinaryContent(url, function(err, zipData) {
