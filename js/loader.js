@@ -1,5 +1,5 @@
 var apiData; //holds processed data, organized on api
-var clientsData; //holds processed data, organized on clients
+var clientData; //holds processed data, organized on clients
 
 var data; //used to store loaded JSON data
 var selectDropDownID = '#selectDropdown';
@@ -37,8 +37,19 @@ function loadJSON(sYear, selectedApp){
 	var url = 'jsonSummaries/' + selectedApp + '.js';		
 	var j = $.getJSON(url, function(jData){
 		//set App name to the element ::TODO
-		apiData = jData.apis;	
+		apiData = jData.apis;
 		populateDropDown();
+	});
+};
+
+function processData(d){
+	apiData = d.apis;
+	d.apis.map( function(obj){
+		var api = obj.name;
+		obj.clients.map( function(obj){
+			var client = obj.name;
+			clientData
+		})
 	});
 };
 
