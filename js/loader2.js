@@ -69,12 +69,16 @@ function load(year, app){
 	//map all the client and api names to their respective list
 	data.apis.map(function (obj){
 		var name = obj.name;
-		if(!apiList.find(name))
+		if(!apiList.find(function f(element, index, array){
+			return element.valueOf() == name.valueOf();
+		}))
 			apiList.push(name);
 		
 		obj.clients.map(function(d){
 			name = d.name;
-			if(!clientList.find(name))
+			if(!clientList.find(function f(element, index, array){
+				return element.valueOf() == name.valueOf();
+			}))
 				clientList.push(name);
 		});
 	});
